@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 ## install packages if necessary
-list.of.packages <- c("janitor", "ggplot2", "dplyr", "lubridate", "zoo", "forcats", "ggthemes", "knitr", "rmarkdown")
+list.of.packages <- c("janitor", "ggplot2", "dplyr", "lubridate", "zoo", "forcats", "ggthemes", "knitr", "rmarkdown", "naniar")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
@@ -20,9 +20,10 @@ library(zoo)
 library(forcats)
 library(ggthemes)
 library(knitr)
+library(naniar)
 
 ## set working directory
-knitr::opts_knit$set(root.dir = '/cloud/project')
+knitr::opts_knit$set(root.dir = '/cloud/project/final_project')
 ```
 
 ### The Data
@@ -60,27 +61,29 @@ atus.all <- atus.sum %>%
 
 ```{r initial-exploration}
 ### Add Code Here
+mean(atus.sum$t120101)
 ```
 
 
 ```{r creating-childcare-var}
 atus.all <- atus.all %>% 
-    mutate(CHILDCARE = )
+    mutate(CHILDCARE = t030101+t030102+t030103+t030104+t030105+t030106+t030108+t030109+t030110+t030111+t030112+t030199)
 ```
 
 ```{r childcare-density-plot}
 ggplot(atus.all) +
-    geom_density()
+    geom_density(aes(CHILDCARE))
 ```
 
 ```{r gender-analysis}
 atus.all %>% 
-    group_by() %>% 
-    FUNCTION()
+    group_by(TESEX) %>% 
+    summarize(mean(CHILDCARE),n=n())
 ```
 
 ```{r replacing-na}
 ## replace -1 in the variable TRDPFTPT with NA.
+
 ```
 
 ```{r exploratory-analysis}
